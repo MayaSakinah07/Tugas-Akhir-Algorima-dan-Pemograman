@@ -1,0 +1,78 @@
+#include <iostream>
+#include <string>
+
+// Nama : Maya Sakinah
+// NIM : 12250521338
+
+using namespace std;
+
+struct Akun {
+    string pin;
+    int saldo;
+};
+
+bool cekPin(Akun akun, string inputPin) {
+    return akun.pin == inputPin;
+}
+
+void tampilkanSaldo(Akun akun) {
+    cout << "Saldo Anda saat ini adalah: " << akun.saldo << endl;
+}
+
+void tarikTunai(Akun &akun, int jumlah) {
+    if (jumlah <= akun.saldo) {
+        akun.saldo -= jumlah;
+        cout << "Penarikan tunai berhasil. Saldo Anda saat ini adalah: " << akun.saldo << endl;
+    } else {
+        cout << "Saldo tidak cukup." << endl;
+    }
+}
+
+int main() {
+    Akun akun;
+    akun.pin = "1234";
+    akun.saldo = 10000; 
+
+    int pilihan;
+    string inputPin;
+
+    while (true) {
+        cout << "Selamat datang di ATM Sederhana" << endl;
+        cout << "1. Cek Saldo" << endl;
+        cout << "2. Tarik Tunai" << endl;
+        cout << "3. Keluar" << endl;
+        cout << "Masukkan pilihan Anda: ";
+        cin >> pilihan;
+
+        switch (pilihan) {
+            case 1:
+                cout << "Masukkan PIN Anda: ";
+                cin >> inputPin;
+                if (cekPin(akun, inputPin)) {
+                    tampilkanSaldo(akun);
+                } else {
+                    cout << "PIN salah." << endl;
+                }
+                break;
+            case 2:
+                cout << "Masukkan PIN Anda: ";
+                cin >> inputPin;
+                if (cekPin(akun, inputPin)) {
+                    int jumlah;
+                    cout << "Masukkan jumlah yang ingin ditarik: ";
+                    cin >> jumlah;
+                    tarikTunai(akun, jumlah);
+                } else {
+                    cout << "PIN salah." << endl;
+                }
+                break;
+            case 3:
+                cout << "Terima kasih telah menggunakan ATM Sederhana." << endl;
+                return 0;
+            default:
+                cout << "Pilihan tidak valid." << endl;
+        }
+    }
+
+    return 0;
+}
